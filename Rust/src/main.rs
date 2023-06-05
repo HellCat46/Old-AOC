@@ -6,6 +6,8 @@ struct Result {
     elf_with_highest : i32,
     all : Vec<Elf>
 }
+
+#[derive(PartialEq)]
 struct Elf {
     position : i32,
     calories : i32
@@ -25,8 +27,8 @@ fn main() {
 
     println!("TOP 3 :");
     println!("Rank 1 : {} at {} location", result.all[0].calories, result.all[0].position);
-    println!("Rank 1 : {} at {} location", result.all[1].calories, result.all[1].position);
-    println!("Rank 1 : {} at {} location", result.all[2].calories, result.all[2].position);
+    println!("Rank 2 : {} at {} location", result.all[1].calories, result.all[1].position);
+    println!("Rank 3 : {} at {} location", result.all[2].calories, result.all[2].position);
 
     let total = result.all[0].calories + result.all[1].calories + result.all[2].calories;
     println!("Total Calories of all top Elves {}", total );
@@ -52,7 +54,6 @@ fn total_calories(data : String) -> Vec<Elf> {
         if !(elf.as_bytes()).is_empty() {
             calories[count].calories  += elf.trim().parse::<i32>().expect("*Cries*");
             calories[count].position = count as i32;
-
         }
         else {
             count += 1;
@@ -63,7 +64,10 @@ fn total_calories(data : String) -> Vec<Elf> {
 
 fn find_result(calories : Vec<Elf>) -> Result {
     let mut calories = calories;
+
+    calories.retain(|elf| elf != &Elf { position : 0, calories : 0});
     calories.sort_by(|elf, elf2| elf2.calories.cmp(&elf.calories));
+
 
     Result {
         elves_count : calories.len() as i32,
