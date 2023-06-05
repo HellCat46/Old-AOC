@@ -29,7 +29,7 @@ fn main() {
     println!("Rank 1 : {} at {} location", result.all[2].calories, result.all[2].position);
 
     let total = result.all[0].calories + result.all[1].calories + result.all[2].calories;
-    println!("Total of all top Elves {}", total );
+    println!("Total Calories of all top Elves {}", total );
 
 }
 
@@ -63,22 +63,12 @@ fn total_calories(data : String) -> Vec<Elf> {
 
 fn find_result(calories : Vec<Elf>) -> Result {
     let mut calories = calories;
-    let mut highest_calories =  0;
-    let mut selected_elf : i32  = 0;
-
-    for (_x, &ref elf) in calories.iter().enumerate() {
-
-        if highest_calories < elf.calories{
-            highest_calories = elf.calories;
-            selected_elf = elf.position;
-        }
-    }
     calories.sort_by(|elf, elf2| elf2.calories.cmp(&elf.calories));
 
     Result {
         elves_count : calories.len() as i32,
-        highest_calories,
-        elf_with_highest : selected_elf,
+        highest_calories : calories[0].calories,
+        elf_with_highest : calories[0].position,
         all : calories
     }
 }
