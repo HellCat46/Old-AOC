@@ -1,5 +1,3 @@
-node_modules
 .idea
-cmake-build-debug
 target
 *.iml
