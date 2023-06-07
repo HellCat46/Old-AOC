@@ -15,7 +15,7 @@ struct Elf {
 
 fn main() {
 
-    let data = get_data("../data/calories.txt");
+    let data = get_data("data/calories.txt");
 
     let elves_calories = total_calories(data);
 
